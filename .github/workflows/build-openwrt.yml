@@ -16,8 +16,10 @@ on:
     inputs:
       ssh:
         description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
+        required: ture
+        default: 'ture'
+        #required: false
+        #default: 'false'
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -89,6 +91,13 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
+    - name: Send document
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        document: openwrt/.config
+        
     - name: Download package
       id: package
       run: |
